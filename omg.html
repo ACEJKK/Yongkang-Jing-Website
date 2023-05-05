@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Web Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <style>
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+ // Initialize the map
+        var map = L.map('map').setView([38.9072, -77.0369], 13); // Set the initial coordinates and zoom level
+
+        // Add a basemap from OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker with a popup
+        var marker = L.marker([38.9072, -77.0369]).addTo(map);
+        marker.bindPopup("<b>Hello!</b><br>I am a popup.").openPopup();
+
+        // Add an event listener for map clicks
+        map.on('click', function(e) {
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+
+        // Add a new marker at the clicked location
+        var newMarker = L.marker([lat, lng]).addTo(map);
+        newMarker.bindPopup("You clicked at " + lat.toFixed(4) + ", " + lng.toFixed(4)).openPopup();
+        });
+
+
+  </script>
+</body>
+</html>
